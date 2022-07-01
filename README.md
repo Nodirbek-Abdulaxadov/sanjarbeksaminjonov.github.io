@@ -7,4 +7,4 @@
 * Blog
 
 
-### Click [saminjonov.uz](https://saminjonov.uz)
+### Click [software-engineer.uz](https://software-engineer.uz)
