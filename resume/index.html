@@ -4,25 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KDDHFH5');</script>
-    <!-- End Google Tag Manager -->
     <meta name="author" content="Nodirbek Abdulakhadov" />
-    <meta name="author" content="Nodirbek Abdulaxadov" />
-    <meta
-      name="keywords"
-      content="About me, Nodirbek Abdulakhadov, Nodirbek, Nodirbek Abdulaxadov, Nodirbek's blog, Nodirbek's resume, Nodirbek's Portfolio"
-    />
     <meta
       name="description"
       content="I'm Nodirbek Abdulakhadov, a 22-years-old Software Engineer from Fergana, Uzbekistan."
     />
     <meta name="theme-color" content="#252b38" />
-
     <title>Nodirbek Abdulakhadov</title>
 
     <link
@@ -30,71 +17,128 @@
       href="../static/images/favicon.png"
       type="image/png"
     />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400&family=Titillium+Web&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400&display=swap"
       rel="stylesheet"
     />
-
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7Q6l5YlZ5dEJ6y5qNl5K5C5w5z1C1l5B5e5zK6l5w5Q5zI5zQ5"
       crossorigin="anonymous"
     />
 
     <link rel="stylesheet" href="../static/css/normalize.css" />
     <link rel="stylesheet" href="../static/css/style.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../static/js/jquery.flurry.js"></script>
+
+    <style>
+      #snow-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Allow interaction through the snow */
+        z-index: 9999; /* Keep snowflakes on top */
+      }
+      .snow-toggle-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #fff;
+        color: #333;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .snow-toggle-btn:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+
+<script>
+  $(document).ready(function () {
+    // Create the snow container
+    $("body").append('<div id="snow-container"></div>');
+
+    // Start snow effect inside the container
+    $("#snow-container").flurry({
+      character: ["❄", "❅", "❆"],
+      height: 340,
+      speed: 2400,
+      frequency: 7,
+      large: 30,
+      small: 4,
+    });
+
+    // Toggle button to start/stop snow
+    $(".snow-toggle-btn").on("click", function () {
+      if ($(this).data("snowing")) {
+        $("#snow-container").flurry("destroy");
+        $(this).text("Start Snow").data("snowing", false);
+      } else {
+        $("#snow-container").flurry({
+          character: ["❄", "❅", "❆"],
+          height:340,
+          speed: 2400,
+          frequency: 7,
+          large: 30,
+          small: 4,
+        });
+        $(this).text("Stop Snow").data("snowing", true);
+      }
+    });
+  });
+</script>
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDDHFH5"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <header class="site-header">
       <nav class="site-nav container">
         <div class="logo">
           <a href="/">
-            <img src="static/images/logo.png" alt="Nodirbek's Blog" />
+            <img src="../static/images/logo.png" alt="Nodirbek's Blog" />
           </a>
         </div>
         <ul>
-          <li class="nav-item active">
-            <a href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="/resume/">Resume</a>
-          </li>
-          <li class="nav-item">
-            <a href="https://t.me/s/nbkabdulaxadov">Blog</a>
-          </li>
+          <ul>
+            <li class="nav-item active">
+              <a href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="/resume/">Resume</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://t.me/s/nbkabdulaxadov">Blog</a>
+            </li>
+          </ul>
         </ul>
       </nav>
     </header>
+
     <main>
       <div class="container main-content__container">
         <iframe
-          src="../static/files/Nodirbek-Abdulakhadov.pdf"
+          src="../static/files/Profile.pdf"
           class="document-view"
           frameborder="0"
-        >
-        </iframe>
+        ></iframe>
       </div>
     </main>
+
     <footer class="site-footer">
       <div class="circle">
-        &copy;
-        <script>
-          const Year = new Date().getFullYear();
-          document.write(Year);
-        </script>
+        &copy; <script>document.write(new Date().getFullYear());</script>
         Nodirbek Abdulakhadov
       </div>
     </footer>
 
-    <script src="../static/js/main.js"></script>
+    <!-- Snow Toggle Button -->
+    <button class="snow-toggle-btn" data-snowing="true">Stop Snow</button>
   </body>
 </html>
