@@ -63,18 +63,28 @@
 
 <script>
   $(document).ready(function () {
+    // Function to check if it's winter (December - February)
+    function isWinter() {
+      const month = new Date().getMonth() + 1; // Get current month (0-based index, so +1)
+      return month === 12 || month === 1 || month === 2;
+    }
+
     // Create the snow container
     $("body").append('<div id="snow-container"></div>');
 
-    // Start snow effect inside the container
-    $("#snow-container").flurry({
-      character: ["❄", "❅", "❆"],
-      height: 340,
-      speed: 2400,
-      frequency: 7,
-      large: 30,
-      small: 4,
-    });
+    // Show the button and start snow effect only in winter
+    if (isWinter()) {
+      $(".snow-toggle-btn").show(); // Show button
+
+      $("#snow-container").flurry({
+        character: ["❄", "❅", "❆"],
+        height: 340,
+        speed: 2400,
+        frequency: 7,
+        large: 30,
+        small: 4,
+      });
+    }
 
     // Toggle button to start/stop snow
     $(".snow-toggle-btn").on("click", function () {
@@ -84,7 +94,7 @@
       } else {
         $("#snow-container").flurry({
           character: ["❄", "❅", "❆"],
-          height:340,
+          height: 340,
           speed: 2400,
           frequency: 7,
           large: 30,
@@ -139,6 +149,6 @@
     </footer>
 
     <!-- Snow Toggle Button -->
-    <button class="snow-toggle-btn" data-snowing="true">Stop Snow</button>
+    <button class="snow-toggle-btn" data-snowing="true" style="display: none;">Stop Snow</button>
   </body>
 </html>
