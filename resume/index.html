@@ -7,10 +7,10 @@
     <meta name="author" content="Nodirbek Abdulakhadov" />
     <meta
       name="description"
-      content="I'm Nodirbek Abdulakhadov, a 22-years-old Software Engineer from Fergana, Uzbekistan."
+      content="I'm Nodirbek Abdulakhadov, a 23-years-old Software Engineer from Fergana, Uzbekistan."
     />
-    <meta name="theme-color" content="#252b38" />
-    <title>Nodirbek Abdulakhadov</title>
+    <meta name="theme-color" content="#667eea" />
+    <title>Resume - Nodirbek Abdulakhadov 📄</title>
 
     <link
       rel="shortcut icon"
@@ -18,14 +18,12 @@
       type="image/png"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7Q6l5YlZ5dEJ6y5qNl5K5C5w5z1C1l5B5e5zK6l5w5Q5zI5zQ5"
-      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
     <link rel="stylesheet" href="../static/css/normalize.css" />
@@ -108,36 +106,61 @@
   </head>
 
   <body>
+    <!-- Background elements -->
+    <div class="bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
     <header class="site-header">
       <nav class="site-nav container">
         <div class="logo">
-          <a href="/">
-            <img src="../static/images/logo.png" alt="Nodirbek's Blog" />
+          <a href="/" class="logo-link">
+            <span class="logo-text">N</span>
+            <span class="logo-emoji">✨</span>
           </a>
         </div>
-        <ul>
-          <ul>
-            <li class="nav-item">
-              <a href="/">Home</a>
-            </li>
-            <li class="nav-item active">
-              <a href="/resume/">Resume</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://t.me/s/nbkabdulaxadov">Blog</a>
-            </li>
-          </ul>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="/">🏠 Home</a>
+          </li>
+          <li class="nav-item active">
+            <a href="/resume/">📄 Resume</a>
+          </li>
+          <li class="nav-item">
+            <a href="https://t.me/s/nbkabdulaxadov">📝 Blog</a>
+          </li>
         </ul>
       </nav>
     </header>
 
-    <main>
+    <main class="main-content">
       <div class="container main-content__container">
-        <iframe
-          src="../static/files/Profile.pdf"
-          class="document-view"
-          frameborder="0"
-        ></iframe>
+        <div class="resume-container">
+          <div class="resume-header">
+            <h1><span class="icon">📄</span> My Resume</h1>
+            <p>Download or view my professional resume</p>
+            <div class="resume-actions">
+              <a href="../static/files/Profile.pdf" download class="btn btn-primary">
+                <i class="fas fa-download"></i>
+                Download PDF
+              </a>
+              <a href="../static/files/Profile.pdf" target="_blank" class="btn btn-secondary">
+                <i class="fas fa-external-link-alt"></i>
+                Open in New Tab
+              </a>
+            </div>
+          </div>
+          
+          <div class="resume-viewer">
+            <iframe
+              src="../static/files/Profile.pdf"
+              class="document-view"
+              title="Nodirbek Abdulakhadov Resume"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </main>
 

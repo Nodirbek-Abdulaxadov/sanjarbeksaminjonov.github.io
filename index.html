@@ -10,8 +10,8 @@
       name="description"
       content="I'm Nodirbek Abdulakhadov, a 23-years-old Software Engineer from Fergana, Uzbekistan."
     />
-    <meta name="theme-color" content="#252b38" />
-    <title>Nodirbek Abdulakhadov</title>
+    <meta name="theme-color" content="#667eea" />
+    <title>Nodirbek Abdulakhadov ✨</title>
 
     <link
       rel="shortcut icon"
@@ -20,13 +20,13 @@
     />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400&family=Titillium+Web&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
     <link rel="stylesheet" href="static/css/normalize.css" />
@@ -107,22 +107,30 @@
   </head>
 
   <body>
+    <!-- Background elements -->
+    <div class="bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+
     <header class="site-header">
       <nav class="site-nav container">
         <div class="logo">
-          <a href="/">
-            <img src="static/images/logo.png" alt="Nodirbek's Blog" />
+          <a href="/" class="logo-link">
+            <span class="logo-text">N</span>
+            <span class="logo-emoji">✨</span>
           </a>
         </div>
-        <ul>
+        <ul class="nav-menu">
           <li class="nav-item active">
-            <a href="/">Home</a>
+            <a href="/">🏠 Home</a>
           </li>
           <li class="nav-item">
-            <a href="/resume/">Resume</a>
+            <a href="/resume/">📄 Resume</a>
           </li>
           <li class="nav-item">
-            <a href="https://t.me/s/nbkabdulaxadov">Blog</a>
+            <a href="https://t.me/s/nbkabdulaxadov">📝 Blog</a>
           </li>
         </ul>
       </nav>
@@ -130,53 +138,77 @@
 
     <main class="main-content">
       <div class="container main-content__container">
-        <div class="introduce-row">
-          <img
-            class="my-photo"
-            src="static/images/me.jpg"
-            width="140"
-            height="140"
-            alt="Nodirbek's Photo"
-          />
-          <div class="who-am-i">
-            <h1>Nodirbek Abdulakhadov</h1>
-            <h2>.NET Software Engineer</h2>
-            <div class="social-links">
-              <a target="_blank" href="https://github.com/Nodirbek-Abdulaxadov">
-                <i class="fab fa-github"></i>
+        <section class="hero-section">
+          <div class="profile-card">
+            <div class="profile-image-container">
+              <img
+                class="profile-image"
+                src="static/images/me.jpg"
+                width="160"
+                height="160"
+                alt="Nodirbek's Photo"
+              />
+              <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span class="status-text">Available for work</span>
+              </div>
+            </div>
+            
+            <div class="profile-info">
+              <div class="name-section">
+                <h1 class="main-title">
+                  <span class="greeting">Hey, I'm</span>
+                  <span class="name">Nodirbek Abdulakhadov</span>
+                </h1>
+                <h2 class="subtitle">
+                  <span class="role-icon">💻</span>
+                  .NET Software Engineer
+                </h2>
+              </div>
+
+              <div class="social-links">
+                <a target="_blank" href="https://github.com/Nodirbek-Abdulaxadov" class="social-link github">
+                  <i class="fab fa-github"></i>
+                  <span class="tooltip">GitHub</span>
+                </a>
+                <a target="_blank" href="https://t.me/nbkabdulakhadov" class="social-link telegram">
+                  <i class="fab fa-telegram"></i>
+                  <span class="tooltip">Telegram</span>
+                </a>
+                <a target="_blank" href="https://www.linkedin.com/in/nbkabdulakhadov" class="social-link linkedin">
+                  <i class="fab fa-linkedin"></i>
+                  <span class="tooltip">LinkedIn</span>
+                </a>
+                <a target="_blank" href="https://www.instagram.com/nbkabdulakhadov" class="social-link instagram">
+                  <i class="fab fa-instagram"></i>
+                  <span class="tooltip">Instagram</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="description-card">
+            <div class="card-header">
+              <h3>About Me <span class="wave">👋</span></h3>
+            </div>
+            <p class="description-text">
+              Journey through the digital realm with a passionate .NET software engineer. 
+              I craft elegant code and innovative solutions that create seamless user experiences. 
+              Let's explore the world of C#, ASP.NET, and modern web technologies together! ✨
+            </p>
+            
+            <div class="action-buttons">
+              <a class="btn btn-primary" href="https://t.me/s/nbkabdulaxadov">
+                <i class="fas fa-book-open"></i>
+                Read My Blog
               </a>
-              <a target="_blank" href="https://t.me/nbkabdulakhadov">
-                <i class="fab fa-telegram"></i>
-              </a>
-              <a
-                target="_blank"
-                href="https://www.linkedin.com/in/nbkabdulakhadov"
-              >
-                <i class="fab fa-linkedin"></i>
-              </a>
-              <a
-                target="_blank"
-                href="https://www.instagram.com/nbkabdulakhadov"
-              >
-                <i class="fab fa-instagram"></i>
+              <a class="btn btn-secondary" href="https://github.com/Nodirbek-Abdulaxadov">
+                <i class="fas fa-code"></i>
+                View Portfolio
               </a>
             </div>
           </div>
-        </div>
-        <div class="little-description">
-          <p>
-            Journey through the digital realm with a seasoned .NET software engineer. Delve into the world of elegant code, innovative solutions, and seamless user experiences. Join me in unraveling the intricacies of software development as we navigate through the realms of C#, ASP.NET, and more. Whether you're a fellow coder or simply curious about the tech landscape, come along as we bridge imagination with functionality in the digital age.
-          </p>
-          <div class="btn-group">
-            <a class="blog-link" href="https://t.me/s/nbkabdulaxadov">Read Blog</a>
-            <a
-              class="portfolio-link"
-              href="https://github.com/Nodirbek-Abdulaxadov"
-            >
-              Portfolio
-            </a>
-          </div>
-        </div>
+        </section>
       </div>
     </main>
 
