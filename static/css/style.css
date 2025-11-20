@@ -416,6 +416,7 @@ main {
 .social-link.telegram:hover { background: #0088cc; color: var(--text-light); }
 .social-link.linkedin:hover { background: #0077b5; color: var(--text-light); }
 .social-link.instagram:hover { background: #e4405f; color: var(--text-light); }
+.social-link.nuget:hover { background: #004880; color: var(--text-light); }
 
 .tooltip {
   position: absolute;
