@@ -31,6 +31,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../static/js/jquery.flurry.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
       #snow-container {
@@ -105,12 +106,18 @@
 </script>
   </head>
 
-  <body>
-    <!-- Background elements -->
-    <div class="bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
+  <body class="dark-theme">
+    <!-- 3D Space Background -->
+    <canvas id="space-canvas"></canvas>
+    
+    <!-- Floating Planets -->
+    <div class="space-objects">
+      <div class="planet planet-1"></div>
+      <div class="planet planet-2"></div>
+      <div class="planet planet-3"></div>
+      <div class="asteroid asteroid-1"></div>
+      <div class="asteroid asteroid-2"></div>
+      <div class="comet"></div>
     </div>
 
     <header class="site-header">
@@ -132,9 +139,13 @@
             <a href="https://t.me/s/nbkabdulaxadov">📝 Blog</a>
           </li>
         </ul>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
-          <span class="theme-toggle__icon" aria-hidden="true" data-theme-icon>🌙</span>
-          <span class="theme-toggle__label" data-theme-label>Dark Mode</span>
+        <button class="animation-toggle" type="button" data-animation-toggle aria-pressed="true">
+          <span class="animation-toggle__icon" aria-hidden="true">🎬</span>
+          <span class="animation-toggle__label">Simple Mode</span>
+        </button>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="true">
+          <span class="theme-toggle__icon" aria-hidden="true" data-theme-icon>🌞</span>
+          <span class="theme-toggle__label" data-theme-label>Light Mode</span>
         </button>
       </nav>
     </header>
@@ -142,28 +153,212 @@
     <main class="main-content">
       <div class="container main-content__container">
         <div class="resume-container">
-          <div class="resume-header">
-            <h1><span class="icon">📄</span> My Resume</h1>
-            <p>Download or view my professional resume</p>
-            <div class="resume-actions">
-              <a href="../static/files/Profile.pdf" download class="btn btn-primary">
-                <i class="fas fa-download"></i>
-                Download PDF
+          
+          <!-- Resume Header -->
+          <div class="resume-header-card">
+            <div class="resume-avatar">
+              <img src="../static/images/me.jpg" alt="Nodirbek Abdulakhadov" class="avatar-image">
+            </div>
+            <h1 class="resume-name">Nodirbek Abdulakhadov</h1>
+            <h2 class="resume-title">.NET Software Engineer</h2>
+            <div class="resume-contact">
+              <a href="tel:+998946016000" class="contact-item">
+                <i class="fas fa-phone"></i> +998 77 355 57 44
               </a>
-              <a href="../static/files/Profile.pdf" target="_blank" class="btn btn-secondary">
-                <i class="fas fa-external-link-alt"></i>
-                Open in New Tab
+              <a href="mailto:nodirbek.post@gmail.com" class="contact-item">
+                <i class="fas fa-envelope"></i> nbkabdulakhadov@gmail.com
+              </a>
+              <a href="https://github.com/Nodirbek-Abdulaxadov" target="_blank" class="contact-item">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/nbkabdulakhadov" target="_blank" class="contact-item">
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+            </div>
+            <div class="resume-download">
+              <a href="../static/files/Profile.pdf" download class="btn btn-primary">
+                <i class="fas fa-download"></i> Download PDF
               </a>
             </div>
           </div>
-          
-          <div class="resume-viewer">
-            <iframe
-              src="../static/files/Profile.pdf"
-              class="document-view"
-              title="Nodirbek Abdulakhadov Resume"
-            ></iframe>
+
+          <!-- About Section -->
+          <div class="resume-section">
+            <h3 class="section-title">
+              <i class="fas fa-user"></i> About Me
+            </h3>
+            <div class="section-content">
+              <p>
+                Passionate .NET Software Engineer with expertise in building scalable web applications 
+                and RESTful APIs. Skilled in C#, ASP.NET Core, and modern web technologies. 
+                Strong problem-solving abilities and commitment to writing clean, maintainable code.
+              </p>
+            </div>
           </div>
+
+          <!-- Skills Section -->
+          <div class="resume-section">
+            <h3 class="section-title">
+              <i class="fas fa-code"></i> Technical Skills
+            </h3>
+            <div class="section-content">
+              <div class="skills-grid">
+                <div class="skill-category">
+                  <h4>Programming Languages</h4>
+                  <div class="skill-tags">
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">HTML/CSS</span>
+                  </div>
+                </div>
+                
+                <div class="skill-category">
+                  <h4>Frameworks & Libraries</h4>
+                  <div class="skill-tags">
+                    <span class="skill-tag">ASP.NET Core</span>
+                    <span class="skill-tag">Entity Framework</span>
+                    <span class="skill-tag">Blazor</span>
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Angular</span>
+                  </div>
+                </div>
+                
+                <div class="skill-category">
+                  <h4>Databases</h4>
+                  <div class="skill-tags">
+                    <span class="skill-tag">SQL Server</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Redis</span>
+                  </div>
+                </div>
+                
+                <div class="skill-category">
+                  <h4>Tools & Technologies</h4>
+                  <div class="skill-tags">
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Azure</span>
+                    <span class="skill-tag">REST API</span>
+                    <span class="skill-tag">Microservices</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Section -->
+          <div class="resume-section">
+            <h3 class="section-title">
+              <i class="fas fa-briefcase"></i> Work Experience
+            </h3>
+            <div class="section-content">
+              <div class="experience-item">
+                <div class="experience-header">
+                  <h4>.NET Software Engineer</h4>
+                  <span class="experience-period">2021 - Present</span>
+                </div>
+                <p class="experience-company">
+                  <i class="fas fa-building"></i> Various Projects
+                </p>
+                <ul class="experience-details">
+                  <li>Developed and maintained scalable web applications using ASP.NET Core</li>
+                  <li>Designed and implemented RESTful APIs serving thousands of requests daily</li>
+                  <li>Worked with Entity Framework Core for efficient database operations</li>
+                  <li>Implemented authentication and authorization using JWT and Identity</li>
+                  <li>Collaborated with cross-functional teams in Agile environment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Section -->
+          <div class="resume-section">
+            <h3 class="section-title">
+              <i class="fas fa-graduation-cap"></i> Education
+            </h3>
+            <div class="section-content">
+              <div class="education-item">
+                <div class="education-header">
+                  <h4>Computer Science & Software Engineering</h4>
+                  <span class="education-period">2019 - 2023</span>
+                </div>
+                <p class="education-institution">
+                  <i class="fas fa-university"></i> Fergana, Uzbekistan
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects Section -->
+          <div class="resume-section">
+            <h3 class="section-title">
+              <i class="fas fa-rocket"></i> Notable Projects
+            </h3>
+            <div class="section-content">
+              <div class="projects-grid">
+                <div class="project-card">
+                  <h4>E-Commerce Platform</h4>
+                  <p>Full-stack e-commerce solution with ASP.NET Core backend and React frontend</p>
+                  <div class="project-tags">
+                    <span>ASP.NET Core</span>
+                    <span>React</span>
+                    <span>SQL Server</span>
+                  </div>
+                </div>
+                
+                <div class="project-card">
+                  <h4>Task Management System</h4>
+                  <p>Real-time collaborative task management application with SignalR</p>
+                  <div class="project-tags">
+                    <span>Blazor</span>
+                    <span>SignalR</span>
+                    <span>PostgreSQL</span>
+                  </div>
+                </div>
+                
+                <div class="project-card">
+                  <h4>API Gateway</h4>
+                  <p>Microservices architecture with API Gateway and service discovery</p>
+                  <div class="project-tags">
+                    <span>Microservices</span>
+                    <span>Docker</span>
+                    <span>Azure</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certifications & Achievements -->
+          <div class="resume-section">
+            <h3 class="section-title">
+              <i class="fas fa-trophy"></i> Certifications & Achievements
+            </h3>
+            <div class="section-content">
+              <ul class="achievements-list">
+                <li>
+                  <i class="fas fa-certificate"></i>
+                  Microsoft Certified: Azure Developer Associate
+                </li>
+                <li>
+                  <i class="fas fa-star"></i>
+                  Published multiple NuGet packages for .NET community
+                </li>
+                <li>
+                  <i class="fas fa-code-branch"></i>
+                  Active contributor to open-source projects
+                </li>
+                <li>
+                  <i class="fas fa-blog"></i>
+                  Technical blog writer sharing .NET knowledge
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </main>
@@ -175,9 +370,9 @@
       </div>
     </footer>
 
-    <!-- Snow Toggle Button -->
     <button class="snow-toggle-btn" data-snowing="true" style="display: none;">Stop Snow</button>
 
     <script src="../static/js/main.js"></script>
+    <script src="../static/js/space.js"></script>
   </body>
 </html>

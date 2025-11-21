@@ -40,7 +40,8 @@
 		if (storedTheme) {
 			return storedTheme;
 		}
-		return prefersDarkQuery.matches ? 'dark' : 'light';
+		// Default to dark theme instead of system preference
+		return 'dark';
 	}
 
 	function updateThemeMeta(theme) {
