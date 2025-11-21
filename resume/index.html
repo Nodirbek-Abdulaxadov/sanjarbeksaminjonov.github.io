@@ -107,18 +107,13 @@
   </head>
 
   <body class="dark-theme">
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+      <source src="/static/files/Interstellar.mp3" type="audio/mpeg">
+    </audio>
+    
     <!-- 3D Space Background -->
     <canvas id="space-canvas"></canvas>
-    
-    <!-- Floating Planets -->
-    <div class="space-objects">
-      <div class="planet planet-1"></div>
-      <div class="planet planet-2"></div>
-      <div class="planet planet-3"></div>
-      <div class="asteroid asteroid-1"></div>
-      <div class="asteroid asteroid-2"></div>
-      <div class="comet"></div>
-    </div>
 
     <header class="site-header">
       <nav class="site-nav container">
@@ -128,25 +123,35 @@
             <span class="logo-emoji">✨</span>
           </a>
         </div>
-        <ul class="nav-menu">
-          <li class="nav-item">
-            <a href="/">🏠 Home</a>
-          </li>
-          <li class="nav-item active">
-            <a href="/resume/">📄 Resume</a>
-          </li>
-          <li class="nav-item">
-            <a href="https://t.me/s/nbkabdulaxadov">📝 Blog</a>
-          </li>
-        </ul>
-        <button class="animation-toggle" type="button" data-animation-toggle aria-pressed="true">
-          <span class="animation-toggle__icon" aria-hidden="true">🎬</span>
-          <span class="animation-toggle__label">Simple Mode</span>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
         </button>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="true">
-          <span class="theme-toggle__icon" aria-hidden="true" data-theme-icon>🌞</span>
-          <span class="theme-toggle__label" data-theme-label>Light Mode</span>
-        </button>
+        <div class="nav-wrapper" id="nav-wrapper">
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <a href="/">🏠 Home</a>
+            </li>
+            <li class="nav-item active">
+              <a href="/resume/">📄 Resume</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://t.me/s/nbkabdulaxadov">📝 Blog</a>
+            </li>
+          </ul>
+          <div class="nav-actions">
+            <button class="animation-toggle" type="button" data-animation-toggle aria-pressed="true">
+              <span class="animation-toggle__icon" aria-hidden="true">🎬</span>
+            </button>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="true">
+              <span class="theme-toggle__icon" aria-hidden="true" data-theme-icon>🌞</span>
+            </button>
+            <button class="music-toggle" type="button" id="music-toggle">
+              <span id="music-icon">🔇</span>
+            </button>
+          </div>
+        </div>
       </nav>
     </header>
 
@@ -366,13 +371,51 @@
     <footer class="site-footer">
       <div class="circle">
         &copy; <script>document.write(new Date().getFullYear());</script>
-        Nodirbek Abdulakhadov
+        Nodirbek Abdulakhadov | Built with Claude Sonnet 4.5
       </div>
     </footer>
 
     <button class="snow-toggle-btn" data-snowing="true" style="display: none;">Stop Snow</button>
 
-    <script src="../static/js/main.js"></script>
     <script src="../static/js/space.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        // Music toggle
+        const btn = document.getElementById('music-toggle');
+        const audio = document.getElementById('background-music');
+        const icon = document.getElementById('music-icon');
+        
+        audio.volume = 0.3;
+        
+        btn.onclick = function() {
+          if (audio.paused) {
+            audio.play();
+            icon.textContent = '🔊';
+          } else {
+            audio.pause();
+            icon.textContent = '🔇';
+          }
+        };
+        
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navWrapper = document.getElementById('nav-wrapper');
+        
+        mobileMenuToggle.onclick = function() {
+          navWrapper.classList.toggle('active');
+          mobileMenuToggle.classList.toggle('active');
+        };
+        
+        // Close menu when clicking a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+          link.onclick = function() {
+            navWrapper.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+          };
+        });
+      });
+    </script>
   </body>
 </html>

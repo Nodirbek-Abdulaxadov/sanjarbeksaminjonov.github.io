@@ -17,8 +17,7 @@ class ThreeJsSpace {
     
     this.init();
     this.createStarField();
-    this.createGalaxy();
-    this.createTunnel();
+    this.createBlackHole();
     this.createFloatingGeometry();
     this.animate();
     this.setupEventListeners();
@@ -150,6 +149,173 @@ class ThreeJsSpace {
     this.galaxy = new THREE.Points(galaxyGeometry, galaxyMaterial);
     this.galaxy.position.z = -30;
     this.scene.add(this.galaxy);
+  }
+  
+  createBlackHole() {
+    // Event Horizon - qora markaziy sfera
+    const eventHorizonGeometry = new THREE.SphereGeometry(1.5, 64, 64);
+    const eventHorizonMaterial = new THREE.MeshBasicMaterial({
+      color: 0x000000,
+      transparent: true,
+      opacity: 1
+    });
+    this.eventHorizon = new THREE.Mesh(eventHorizonGeometry, eventHorizonMaterial);
+    this.eventHorizon.position.z = -25;
+    this.scene.add(this.eventHorizon);
+    
+    // Accretion Disk - asosiy disk
+    const diskGeometry = new THREE.BufferGeometry();
+    const diskCount = 25000;
+    const diskPositions = new Float32Array(diskCount * 3);
+    const diskColors = new Float32Array(diskCount * 3);
+    const diskSizes = new Float32Array(diskCount);
+    
+    for (let i = 0; i < diskCount; i++) {
+      const i3 = i * 3;
+      
+      // Ring tuzilishi
+      const minRadius = 2;
+      const maxRadius = 12;
+      const radius = minRadius + Math.pow(Math.random(), 0.8) * (maxRadius - minRadius);
+      const angle = Math.random() * Math.PI * 2;
+      
+      // Spiral effect
+      const spiralOffset = radius * 0.3;
+      const finalAngle = angle + spiralOffset;
+      
+      // Disk qalinligi (markazga yaqinroq - ingichka)
+      const heightVariation = Math.pow(1 - (radius - minRadius) / (maxRadius - minRadius), 2);
+      const height = (Math.random() - 0.5) * 0.2 * (1 + heightVariation);
+      
+      diskPositions[i3] = Math.cos(finalAngle) * radius;
+      diskPositions[i3 + 1] = height;
+      diskPositions[i3 + 2] = Math.sin(finalAngle) * radius;
+      
+      // Rang: ichkaridan tashqariga qizil->to'q sariq->qizil
+      const normalizedRadius = (radius - minRadius) / (maxRadius - minRadius);
+      const color = new THREE.Color();
+      
+      if (normalizedRadius < 0.3) {
+        // Ichki qism - juda issiq - to'q sariq/oq
+        color.setRGB(
+          1,
+          0.8 + normalizedRadius * 0.2,
+          0.4 + normalizedRadius * 0.3
+        );
+      } else if (normalizedRadius < 0.7) {
+        // O'rta qism - to'q sariq/orange
+        const t = (normalizedRadius - 0.3) / 0.4;
+        color.setRGB(
+          1,
+          0.5 + (1 - t) * 0.3,
+          0.1 + (1 - t) * 0.2
+        );
+      } else {
+        // Tashqi qism - qizil/to'q qizil
+        const t = (normalizedRadius - 0.7) / 0.3;
+        color.setRGB(
+          1 - t * 0.3,
+          0.2 - t * 0.15,
+          0.05 - t * 0.05
+        );
+      }
+      
+      diskColors[i3] = color.r;
+      diskColors[i3 + 1] = color.g;
+      diskColors[i3 + 2] = color.b;
+      
+      // Zarrachalar o'lchami
+      diskSizes[i] = (1 - normalizedRadius * 0.5) * 0.4;
+    }
+    
+    diskGeometry.setAttribute('position', new THREE.BufferAttribute(diskPositions, 3));
+    diskGeometry.setAttribute('color', new THREE.BufferAttribute(diskColors, 3));
+    diskGeometry.setAttribute('size', new THREE.BufferAttribute(diskSizes, 1));
+    
+    const diskMaterial = new THREE.PointsMaterial({
+      size: 0.3,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
+      depthWrite: false
+    });
+    
+    this.accretionDisk = new THREE.Points(diskGeometry, diskMaterial);
+    this.accretionDisk.position.copy(this.eventHorizon.position);
+    this.accretionDisk.rotation.x = Math.PI / 2.5; // Biroz qiyshaytirilgan
+    this.scene.add(this.accretionDisk);
+    
+    // Photon ring - yorqin ichki halqa
+    const photonRingGeometry = new THREE.TorusGeometry(2.2, 0.08, 16, 100);
+    const photonRingMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffaa33,
+      transparent: true,
+      opacity: 0.9
+    });
+    this.photonRing = new THREE.Mesh(photonRingGeometry, photonRingMaterial);
+    this.photonRing.position.copy(this.eventHorizon.position);
+    this.photonRing.rotation.x = this.accretionDisk.rotation.x;
+    this.scene.add(this.photonRing);
+    
+    // Gravitational lensing glow - orqa tomondagi disk qismi
+    const backDiskGeometry = new THREE.BufferGeometry();
+    const backDiskCount = 15000;
+    const backPositions = new Float32Array(backDiskCount * 3);
+    const backColors = new Float32Array(backDiskCount * 3);
+    
+    for (let i = 0; i < backDiskCount; i++) {
+      const i3 = i * 3;
+      
+      const radius = 2 + Math.random() * 10;
+      const angle = Math.random() * Math.PI * 2;
+      
+      // Yuqori va pastda egrilgan disk
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      const bendFactor = Math.pow(radius / 12, 2);
+      const y = Math.sin(angle * 2) * bendFactor * 3;
+      
+      backPositions[i3] = x;
+      backPositions[i3 + 1] = y;
+      backPositions[i3 + 2] = z;
+      
+      // Orange/qizil rang
+      const color = new THREE.Color();
+      color.setRGB(1, 0.4 + Math.random() * 0.2, 0.1);
+      
+      backColors[i3] = color.r;
+      backColors[i3 + 1] = color.g;
+      backColors[i3 + 2] = color.b;
+    }
+    
+    backDiskGeometry.setAttribute('position', new THREE.BufferAttribute(backPositions, 3));
+    backDiskGeometry.setAttribute('color', new THREE.BufferAttribute(backColors, 3));
+    
+    const backDiskMaterial = new THREE.PointsMaterial({
+      size: 0.25,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending
+    });
+    
+    this.backDisk = new THREE.Points(backDiskGeometry, backDiskMaterial);
+    this.backDisk.position.copy(this.eventHorizon.position);
+    this.scene.add(this.backDisk);
+    
+    // Inner glow - event horizon atrofidagi yorqinlik
+    const glowGeometry = new THREE.SphereGeometry(1.8, 32, 32);
+    const glowMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff6600,
+      transparent: true,
+      opacity: 0.15,
+      side: THREE.BackSide
+    });
+    this.innerGlow = new THREE.Mesh(glowGeometry, glowMaterial);
+    this.innerGlow.position.copy(this.eventHorizon.position);
+    this.scene.add(this.innerGlow);
   }
   
   createTunnel() {
@@ -286,28 +452,38 @@ class ThreeJsSpace {
       this.starField.rotation.x = Math.sin(elapsedTime * 0.01) * 0.1;
     }
     
-    // Rotate and pulse galaxy
-    if (this.galaxy) {
-      this.galaxy.rotation.y = elapsedTime * 0.05;
-      this.galaxy.rotation.x = Math.sin(elapsedTime * 0.03) * 0.2;
-      const scale = 1 + Math.sin(elapsedTime * 0.5) * 0.1;
-      this.galaxy.scale.set(scale, scale, scale);
+    // Animate Black Hole
+    if (this.accretionDisk) {
+      this.accretionDisk.rotation.z = elapsedTime * 0.15;
+      
+      // Pulse effect
+      const pulseFactor = 1 + Math.sin(elapsedTime * 2) * 0.03;
+      this.accretionDisk.scale.set(pulseFactor, pulseFactor, 1);
     }
     
-    // Animate tunnel - move forward and rotate
-    this.tunnel.forEach((ring) => {
-      ring.position.z += ring.userData.speed;
-      ring.rotation.z += ring.userData.rotationSpeed;
-      
-      // Reset position when ring passes camera
-      if (ring.position.z > 5) {
-        ring.position.z = -245;
-      }
-      
-      // Pulsate
-      const scale = 1 + Math.sin(elapsedTime * 2 + ring.position.z * 0.1) * 0.1;
-      ring.scale.set(scale, scale, scale);
-    });
+    if (this.photonRing) {
+      this.photonRing.rotation.z = elapsedTime * 0.6;
+      const glowFactor = 0.7 + Math.sin(elapsedTime * 3) * 0.3;
+      this.photonRing.material.opacity = glowFactor;
+    }
+    
+    if (this.backDisk) {
+      this.backDisk.rotation.y = elapsedTime * 0.08;
+      this.backDisk.rotation.z = -elapsedTime * 0.12;
+    }
+    
+    if (this.innerGlow) {
+      const glowPulse = 0.15 + Math.sin(elapsedTime * 1.5) * 0.08;
+      this.innerGlow.material.opacity = glowPulse;
+      const glowScale = 1 + Math.sin(elapsedTime * 2) * 0.05;
+      this.innerGlow.scale.set(glowScale, glowScale, glowScale);
+    }
+    
+    if (this.eventHorizon) {
+      // Event horizon distortion
+      const distortion = 1 + Math.sin(elapsedTime * 4) * 0.015;
+      this.eventHorizon.scale.set(distortion, distortion, distortion);
+    }
     
     // Animate floating objects
     this.floatingObjects.forEach((obj) => {
